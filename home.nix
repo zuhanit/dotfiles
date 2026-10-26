@@ -203,9 +203,16 @@
 
   programs.jujutsu = {
     enable = true;
-    settings.user = {
-      name = "zuhanit";
-      email = "zuhanit3@gmail.com"; 
+    settings = {
+      user = {
+        name = "zuhanit";
+        email = "zuhanit3@gmail.com";
+      };
+      signing = {
+        behavior = "own";
+        backend = "ssh";
+        key = "${config.home.homeDirectory}/.ssh/github.pub";
+      };
     };
   };
 
