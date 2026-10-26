@@ -86,7 +86,7 @@
       pkgs.lua-language-server
     ];
     settings = {
-      theme = "rose_pine_dawn";
+      theme = "everforest_light";
       editor = {
         auto-format = true;
         bufferline = "multiple";
@@ -166,7 +166,7 @@
     settings = {
       font-size = 12;
       font-family = "Ioskeley Mono";
-      theme = "Rose Pine Dawn";
+      theme = "Everforest Light Med";
     };
   };
 
