@@ -1,5 +1,5 @@
 {
-  description = "Home Manager configuration of zuhanit";
+  description = "Zuhanit's nix configuration.";
 
   inputs = {
     # Specify the source of Home Manager and Nixpkgs.
@@ -8,10 +8,11 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    helix.url = "github:helix-editor/helix";
   };
 
   outputs =
-    { nixpkgs, home-manager, ... }:
+    { nixpkgs, home-manager, ... }@inputs:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
@@ -26,6 +27,7 @@
 
         # Optionally use extraSpecialArgs
         # to pass through arguments to home.nix
+        extraSpecialArgs = { inherit inputs; };
       };
     };
 }

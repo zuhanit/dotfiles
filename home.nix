@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
   # Home Manager needs a bit of information about you and the paths it should
@@ -18,10 +18,6 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = [
-    # # Adds the 'hello' command to your environment. It prints a friendly
-    # # "Hello, world!" when run.
-    # pkgs.hello
-
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
     # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
@@ -34,6 +30,9 @@
     # (pkgs.writeShellScriptBin "my-hello" ''
     #   echo "Hello, ${config.home.username}!"
     # '')
+    pkgs.nushell
+    pkgs.carapace
+    pkgs.starship
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -68,9 +67,91 @@
   #  /etc/profiles/per-user/zuhanit/etc/profile.d/hm-session-vars.sh
   #
   home.sessionVariables = {
-    # EDITOR = "emacs";
+    EDITOR = "hx";
   };
+
+  home.sessionPath = [
+    "$HOME/.local/bin"
+  ];
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
+
+  programs.helix = {
+    enable = true;
+    package = inputs.helix.packages.${pkgs.stdenv.hostPlatform.system}.default;
+    extraPackages = [
+      pkgs.nil
+      pkgs.taplo
+      pkgs.lua-language-server
+    ];
+    settings = {
+      theme = "rose_pine_dawn";
+      editor = {
+        auto-format = true;
+        bufferline = "multiple";
+        end-of-line-diagnostics = "hint";
+        line-number = "relative";
+        shell = [
+          "nu"
+          "-c"
+        ];
+        cursor-shape = {
+          insert = "bar";
+          normal = "block";
+          select = "underline";          
+        };
+        inline-diagnostics.cursor-line = "error";
+        lsp.display-progress-messages = true;
+      };
+    };
+    languages.language = [
+      {
+        name = "nix";
+        formatter = {
+          command = "${pkgs.nixfmt}/bin/nixfmt";
+          args = [ "-" ];
+        };
+      }
+    ];
+  };
+
+  programs.bash = {
+    enable = true;
+    initExtra = ''
+      if [ "$TERM" != "dumb" ] && [ -z "$BASH_EXECUTION_STRING" ]; then
+        exec nu
+      fi
+    '';
+  };
+
+  programs.nushell = {
+    enable = true;
+    loadSessionVariables = true;
+  };
+
+  programs.carapace = {
+    enable = true;
+    enableNushellIntegration = true;
+  };
+
+  programs.starship = {
+    enable = true;
+    settings = {
+      add_newline = true;
+      character = {
+        success_symbol = "[->](bold green)";
+        error_symbol = "[->](bold red)";
+      };
+    };
+  };
+
+  programs.ghostty = {
+    enable = true;
+    settings = {
+      font-size = 12;
+      font-family = "Iosekeley Mono";
+      theme = "Rose Pine Dawn";
+    };
+  };
 }
