@@ -148,10 +148,74 @@
 
   programs.ghostty = {
     enable = true;
+    package = null;
+    systemd.enable = false;
     settings = {
       font-size = 12;
-      font-family = "Iosekeley Mono";
+      font-family = "Ioskeley Mono";
       theme = "Rose Pine Dawn";
     };
+  };
+
+  programs.yazi = {
+    enable = true;
+    enableNushellIntegration = true;
+    extraPackages = with pkgs; [
+      ffmpegthumbnailer
+      poppler-utils
+      fd ripgrep
+      jq
+      _7zz  
+    ];
+    settings.mgr.show_hidden = true;
+  };
+
+  programs.zoxide = {
+    enable = true;
+    enableNushellIntegration = true;
+    options = [ "--cmd" "cd" ];
+  };
+
+  programs.git = {
+    enable = true;
+    package = null;
+    lfs.enable = true;
+    settings = {
+      user.name = "zuhanit";
+      user.email = "zuhanit3@gmail.com";
+      init.defaultBranch = "main";
+    };
+    ignores = [ ".direnv" "result" ];
+  };
+
+  programs.jujutsu = {
+    enable = true;
+    settings.user = {
+      name = "zuhanit";
+      email = "zuhanit3@gmail.com"; 
+    };
+  };
+
+  programs.lazygit = {
+    enable = true;
+  };
+
+  programs.delta = {
+    enable = true;
+    enableGitIntegration = true;
+    enableJujutsuIntegration = true;
+    options = {
+      navigate = true;
+      side-by-side = false;
+    };
+  };
+
+  xdg.configFile."hypr/.luarc.json".text = builtins.toJSON {
+    "workspace.library" = [ "/usr/share/hypr/stubs" ];
+  };
+
+
+  programs.herdr = {
+    enable = true;
   };
 }
