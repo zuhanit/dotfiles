@@ -104,6 +104,19 @@
         inline-diagnostics.cursor-line = "error";
         lsp.display-progress-messages = true;
       };
+      keys = {
+        normal = {
+          space.e = [
+            ":sh rm -f /tmp/unique-ca1ea106"
+            ":insert-output yazi '%{buffer_name}' --chooser-file=/tmp/unique-ca1ea106"
+            ":sh printf '\\x1b[?1049h\\x1b[?2004h' o> /dev/tty"
+            ":open %sh{cat /tmp/unique-ca1ea106}"
+            ":redraw"
+            ":set mouse false"
+            ":set mouse true"
+          ]; 
+        };
+      };
     };
     languages.language = [
       {
@@ -210,9 +223,8 @@
     };
   };
 
-  xdg.configFile."hypr/.luarc.json".text = builtins.toJSON {
-    "workspace.library" = [ "/usr/share/hypr/stubs" ];
-  };
+  xdg.configFile."hypr".source =
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/hypr";
 
 
   programs.herdr = {
