@@ -24,6 +24,7 @@ require('conf.keybinds')
 require('conf.look')
 require('conf.monitors')
 require('conf.rules')
+require('conf.windows')
 
 ----------------
 ----  MISC  ----
