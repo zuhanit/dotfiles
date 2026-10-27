@@ -84,6 +84,7 @@
       pkgs.nil
       pkgs.taplo
       pkgs.lua-language-server
+      pkgs.roslyn-ls
     ];
     settings = {
       theme = "everforest_light";
@@ -127,6 +128,10 @@
         };
       }
     ];
+    languages.language-server.roslyn-language-server = {
+      command = "Microsoft.CodeAnalysis.LanguageServer";
+      args = [ "--stdio" "--autoLoadProjects" ];
+    };
   };
 
   programs.bash = {
