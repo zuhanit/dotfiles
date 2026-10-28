@@ -15,6 +15,7 @@ end
 hl.bind(vars.kbMenu, hl.dsp.exec_cmd(vars.menu))
 hl.bind(vars.kbFileManager, hl.dsp.exec_cmd(vars.fileManager))
 hl.bind(vars.kbTerminal, hl.dsp.exec_cmd(vars.terminal))
+hl.bind(vars.kbRestartShell, hl.dsp.exec_cmd("ags quit -i zushell; ags run -d ~/zushell"))
 
 -- Window Actions
 for _, dir in ipairs({ "left", "right", "up", "down"}) do

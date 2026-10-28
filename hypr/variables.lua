@@ -49,4 +49,5 @@ return {
   kbTerminal                 = "SUPER + Q",
   kbFileManager              = "SUPER + E",
   kbMenu                     = "SUPER + R",
+  kbRestartShell             = "SUPER + SHIFT + B",
 }

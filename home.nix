@@ -85,6 +85,7 @@
       pkgs.taplo
       pkgs.lua-language-server
       pkgs.roslyn-ls
+      pkgs.typescript-language-server
     ];
     settings = {
       theme = "everforest_light";
