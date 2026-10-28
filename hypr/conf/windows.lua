@@ -31,6 +31,19 @@ hl.window_rule({
     no_focus = true,
 })
 
+hl.window_rule({
+    name = "xwayland-video-bridge-fixes",
+    match = {
+        class = "xwaylandvideobridge",
+    },
+    no_initial_focus = true,
+    no_focus = true,
+    no_anim = true,
+    no_blur = true,
+    max_size = {1, 1},
+    opacity = 0.0
+})
+
 -- Layer rules also return a handle.
 -- local overlayLayerRule = hl.layer_rule({
 --     name  = "no-anim-overlay",
